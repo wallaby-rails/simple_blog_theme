@@ -1,0 +1,25 @@
+<%
+title_field = first_field_by({ is_title: true }, { name: /title|subject/, type: 'string' }, { type: 'string' })
+published_at_field = first_field_by({ is_published_at: true }, { name: /publish/, type: /date|time/ }, { type: /date|time/ })
+image_field = first_field_by({ is_image: true }, { name: /image|img/, type: /active_storage/ })
+body_field = first_field_by({ is_body: true }, { name: /body|content/, type: /string|text/ })
+# decorate first on every page or partial
+decorated = decorate resource
+image = decorated.value_of(image_field)
+image_src = image.attached? ? rails_blob_path(image) : 'https://source.unsplash.com/random/1920x1080'
+%>
+<div id="slogan" class="card text-white border-light">
+  <img src="<%= image_src %>" class="card-img" />
+  <div class="card-img-overlay">
+    <%= render 'slogan' %>
+  </div>
+</div>
+<div class="container mt-3">
+  <article class="card border-light">
+    <div class="card-body pl-0 pr-0">
+      <h1 class="card-title"><%= decorated.value_of title_field %></h1>
+      <time class="card-subtitle text-muted"><%= I18n.l decorated.value_of(published_at_field), format: :short %></time>
+      <p class="card-text"><%= raw decorated.value_of body_field %></p>
+    </div>
+  </article>
+</div>

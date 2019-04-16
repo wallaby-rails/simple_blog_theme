@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><%= render 'title' %></title>
+
+    <%= csrf_meta_tags %>
+
+    <%= render 'stylesheets' %>
+    <%= yield :custom_stylesheet %>
+  </head>
+  <body>
+    <%= render 'header' %>
+    <%= yield %>
+    <%= render 'footer' %>
+    <%= render 'javascripts' %>
+    <%= yield :custom_javascript %>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<%
+title_field = first_field_by({ is_title: true }, { name: /title|subject/, type: 'string' }, { type: 'string' })
+published_at_field = first_field_by({ is_published_at: true }, { name: /publish/, type: /date|time/ }, { type: /date|time/ })
+image_field = first_field_by({ is_image: true }, { name: /image|img/, type: /string|file/ })
+summary_field = first_field_by({ is_summary: true }, { name: /summary/, type: /string|text/ })
+# decorate first on every page or partial
+decorated_collection = decorate collection
+%>
+<div id="slogan" class="card text-white border-light">
+  <img src="https://source.unsplash.com/random/1920x1080" class="card-img" />
+  <div class="card-img-overlay">
+    <%= render 'slogan' %>
+  </div>
+</div>
+<div class="container mt-3">
+  <% if decorated_collection.present? %>
+    <% decorated_collection.each do |decorated| %>
+      <article class="card border-light">
+        <div class="card-body pl-0 pr-0">
+          <h2 class="card-title"><%= decorated.value_of title_field %></h2>
+          <time class="card-subtitle text-muted"><%= I18n.l decorated.value_of(published_at_field), format: :short %></time>
+          <% if image_field %>
+            <p class="card-img"><%= img_tag decorated.value_of image_field %></p>
+          <% end %>
+          <% if summary_field %>
+            <p class="card-text"><%= decorated.value_of summary_field %> <%= link_to 'Read More', show_path(decorated) %></p>
+          <% end %>
+        </div>
+      </article>
+    <% end %>
+  <% else %>
+    No posts to display.
+  <% end %>
+</div>
