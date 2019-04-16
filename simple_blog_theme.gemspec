@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.version     = SimpleBlogTheme::VERSION
   spec.authors     = ["Tian"]
   spec.email       = ["me@tian.im"]
-  spec.homepage    = "TODO"
+  spec.homepage    = "https://github.com/tian-im/simple_blog_theme"
   spec.summary     = "A Wallaby blog theme based on Bootstrap4."
   spec.description = "A Wallaby blog theme based on Bootstrap4."
   spec.license     = "MIT"
