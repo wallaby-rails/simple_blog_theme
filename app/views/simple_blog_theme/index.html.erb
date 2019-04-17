@@ -15,14 +15,18 @@ decorated_collection = decorate collection
 <div class="container mt-3">
   <% if decorated_collection.present? %>
     <% decorated_collection.each do |decorated| %>
+      <% author = decorated.value_of(author_field) %>
+      <% published_at = decorated.value_of(published_at_field) %>
       <article class="card border-light">
         <div class="card-body pl-0 pr-0">
           <h2 class="card-title"><%= decorated.value_of title_field %></h2>
           <div class="card-subtitle text-muted">
-            <% if author_field %>
-              By <em><%= decorated.value_of author_field %></em>,
+            <% if author %>
+              By <em><%= author %></em>,
             <% end %>
-            <time datetime="<% decorated.value_of(published_at_field).iso8601 %>"><%= I18n.l decorated.value_of(published_at_field).to_date, format: :long %></time>
+            <% if published_at %>
+              <time datetime="<% published_at.iso8601 %>"><%= I18n.l published_at.to_date, format: :long %></time>
+            <% end %>
           </div>
           <% if summary_field %>
             <p class="card-text"><%= decorated.value_of summary_field %> <%= link_to 'Read More', show_path(decorated) %></p>

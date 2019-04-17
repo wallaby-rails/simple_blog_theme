@@ -8,6 +8,8 @@ body_field = first_field_by({ is_body: true }, { name: /body|content/, type: /st
 decorated = decorate resource
 image = decorated.value_of(image_field)
 image_src = image.attached? ? rails_blob_path(image) : 'https://source.unsplash.com/random/1920x1080'
+author = decorated.value_of(author_field)
+published_at = decorated.value_of(published_at_field)
 %>
 <div id="slogan" class="card text-white border-light">
   <img src="<%= image_src %>" class="card-img" />
@@ -23,7 +25,9 @@ image_src = image.attached? ? rails_blob_path(image) : 'https://source.unsplash.
         <% if author_field %>
           By <em><%= decorated.value_of author_field %></em>,
         <% end %>
-        <time datetime="<% decorated.value_of(published_at_field).iso8601 %>"><%= I18n.l decorated.value_of(published_at_field).to_date, format: :long %></time>
+        <% if published_at %>
+          <time datetime="<% published_at.iso8601 %>"><%= I18n.l published_at.to_date, format: :long %></time>
+        <% end %>
       </div>
       <p class="card-text"><%= raw decorated.value_of body_field %></p>
     </div>
