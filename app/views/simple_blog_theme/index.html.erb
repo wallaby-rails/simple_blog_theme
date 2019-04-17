@@ -20,7 +20,7 @@ decorated_collection = decorate collection
           <h2 class="card-title"><%= decorated.value_of title_field %></h2>
           <div class="card-subtitle text-muted">
             <% if author_field %>
-              By <em><%= decorated.value_of author_field %></em>
+              By <em><%= decorated.value_of author_field %></em>,
             <% end %>
             <time datetime="<% decorated.value_of(published_at_field).iso8601 %>"><%= I18n.l decorated.value_of(published_at_field).to_date, format: :long %></time>
           </div>

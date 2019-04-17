@@ -21,7 +21,7 @@ image_src = image.attached? ? rails_blob_path(image) : 'https://source.unsplash.
       <h1 class="card-title text-center"><%= decorated.value_of title_field %></h1>
       <div class="card-subtitle text-muted text-center">
         <% if author_field %>
-          By <em><%= decorated.value_of author_field %></em>
+          By <em><%= decorated.value_of author_field %></em>,
         <% end %>
         <time datetime="<% decorated.value_of(published_at_field).iso8601 %>"><%= I18n.l decorated.value_of(published_at_field).to_date, format: :long %></time>
       </div>
