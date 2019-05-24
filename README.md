@@ -2,17 +2,42 @@
 
 Simple Wallaby blog theme based on Bootstrap4.
 
+> NOTE: it doesn't come with pagination.
+
 ## Usage
 
-To use this theme, it goes:
+Assume that you have the following model:
 
 ```ruby
-class BlogsController < Wallaby::ResourcesController
-  self.theme_name = 'simple_blog_theme'
+class Blog < ApplicationRecord
 end
 ```
 
-If the fields aren't detected correctly, you can config them in resource decorator:
+To use this theme, you will need to do the following:
+
+- establish the named resources route:
+
+  ```ruby
+  # config/routes.rb
+  Rails.application.routes.draw do
+    # ...
+    wresources :blogs
+    # ...
+  end
+  ```
+
+- define the controller for model `Blog`:
+
+  ```ruby
+  # app/controllers/blogs_controller.rb
+  class BlogsController < Wallaby::ResourcesController
+    self.theme_name = 'simple_blog_theme'
+  end
+  ```
+
+Generally, this theme will detect the author, title, summary, body, published at and image fields.
+
+But if they aren't detected correctly, you can config them in resource decorator:
 
 ```ruby
 class BlogDecorator < Wallaby::ResourceDecorator
@@ -41,7 +66,7 @@ end
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'simple_blog_theme'
+gem 'simple_blog_theme', git: 'https://github.com/tian-im/simple_blog_theme.git'
 ```
 
 And then execute:
@@ -49,10 +74,6 @@ And then execute:
 ```bash
 $ bundle
 ```
-
-## Contributing
-
-Contribution directions go here.
 
 ## License
 
