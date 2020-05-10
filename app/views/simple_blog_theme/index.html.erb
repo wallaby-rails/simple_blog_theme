@@ -3,6 +3,7 @@ author_field = first_field_by({ is_author: true }, { name: /author/, type: /stri
 title_field = first_field_by({ is_title: true }, { name: /title|subject/, type: /string|text/ }, { type: /string|text/ }) { current_model_decorator.index_fields }
 published_at_field = first_field_by({ is_published_at: true }, { name: /publish/, type: /date|time/ }, { type: /date|time/ })
 summary_field = first_field_by({ is_summary: true }, { name: /summary/, type: /string|text/ })
+
 # decorate first on every page or partial
 decorated_collection = decorate collection
 %>
@@ -20,7 +21,7 @@ decorated_collection = decorate collection
       <article class="card border-light">
         <div class="card-body pl-0 pr-0">
           <h2 class="card-title"><%= decorated.value_of title_field %></h2>
-          <div class="card-subtitle text-muted">
+          <div class="card-subtitle text-muted mb-1">
             <% if author %>
               By <em><%= author %></em>,
             <% end %>
@@ -29,10 +30,27 @@ decorated_collection = decorate collection
             <% end %>
           </div>
           <% if summary_field %>
-            <p class="card-text"><%= decorated.value_of summary_field %> <%= link_to 'Read More', show_path(decorated) %></p>
+            <p class="card-text mb-1"><%= summary_field && decorated.value_of(summary_field) %></p>
           <% end %>
+          <%= link_to 'Read More', show_path(decorated), class: 'card-link' %>
         </div>
       </article>
+    <% end %>
+    <% if current_paginator.try(:paginatable?) %>
+      <nav aria-label="Page navigation" class="mt-3">
+        <ul class="pagination  justify-content-center">
+          <% if current_paginator.prev_page? # has prev page %>
+            <li class="page-item">
+              <%= index_link(current_model_class, url_params: { page: current_paginator.prev_page_number, with_query: true }, html_options: { class: 'page-link' }) { wt 'pagination.prev' } %>
+            </li>
+          <% end %>
+          <% if current_paginator.next_page? # has next page %>
+            <li class="page-item">
+              <%= index_link(current_model_class, url_params: { page: current_paginator.next_page_number, with_query: true }, html_options: { class: 'page-link' }) { wt 'pagination.next' } %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
     <% end %>
   <% else %>
     No posts to display.

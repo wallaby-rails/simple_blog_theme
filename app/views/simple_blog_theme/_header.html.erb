@@ -1,14 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" href="<%= try_to(main_app, :root_path) rescue '/' %>">Simple</a>
+    <a class="navbar-brand" href="<%= main_app.try(:root_path) || '/' %>">Simple</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="<%= try_to(main_app, :root_path) rescue '/' %>">Home</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="<%= index_path(current_model_class) %>">Blog</a>
         </li>

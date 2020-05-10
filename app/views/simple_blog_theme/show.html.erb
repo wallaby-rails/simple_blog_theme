@@ -20,15 +20,15 @@ published_at = decorated.value_of(published_at_field)
 <div class="container mt-3">
   <article class="card border-light">
     <div class="card-body pl-0 pr-0">
-      <h1 class="card-title text-center"><%= decorated.value_of title_field %></h1>
-      <div class="card-subtitle text-muted text-center">
+      <h2 class="card-title mb-3"><%= decorated.value_of title_field %></h2>
+      <h6 class="card-subtitle text-muted mb-4">
         <% if author_field %>
           By <em><%= decorated.value_of author_field %></em>,
         <% end %>
         <% if published_at %>
           <time datetime="<% published_at.iso8601 %>"><%= I18n.l published_at.to_date, format: :long %></time>
         <% end %>
-      </div>
+      </h6>
       <p class="card-text"><%= raw decorated.value_of body_field %></p>
     </div>
   </article>
